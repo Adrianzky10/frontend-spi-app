@@ -16,9 +16,9 @@ import Image from "next/image";
 
 import useDetailInventory from "../useDetailInventory";
 import useUpdateInventory from "../useUpdateInventory";
-import useCategory from "../../Categories/useCategory";
 import { IoArrowBack, IoCheckmarkCircle } from "react-icons/io5";
 import Link from "next/link";
+import useCategory from "../../Categories/useCategory";
 
 interface PropTypes {
   id: string;

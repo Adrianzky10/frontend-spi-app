@@ -25,6 +25,7 @@ import { MdOutlineInventory } from "react-icons/md";
 import useInventory from "./useInventory";
 import useCreateInventory from "./useCreateInventory";
 import useDeleteInventory from "./useDeleteInventory";
+import useCategory from "../Categories/useCategory";
 
 interface Inventory {
   id: number;
