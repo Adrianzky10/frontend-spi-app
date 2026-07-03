@@ -20,10 +20,17 @@ const Dashboard = () => {
           </Chip>
         );
 
+      case "Rejected":
+        return (
+          <Chip color="danger" variant="primary">
+            Ditolak
+          </Chip>
+        );
+
       case "Approved":
         return (
           <Chip color="success" variant="primary">
-            Approved
+            Disetujui
           </Chip>
         );
 
@@ -33,12 +40,11 @@ const Dashboard = () => {
       default:
         return (
           <Chip color="accent" variant="primary">
-            Returned
+            Dikembali
           </Chip>
         );
     }
   };
-
   if (isLoading) {
     return (
       <main className="flex h-[70vh] items-center justify-center">
