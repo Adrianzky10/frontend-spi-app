@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
 
     if (pathname === "/mahasiswa") {
       return NextResponse.redirect(
-        new URL("/mahasiswa/dashboard", request.url),
+        new URL("/mahasiswa/list-inventory", request.url),
       );
     }
   }

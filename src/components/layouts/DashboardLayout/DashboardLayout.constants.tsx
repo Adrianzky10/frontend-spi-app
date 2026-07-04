@@ -54,12 +54,6 @@ const SIDEBAR_PETUGAS = [
 
 const SIDEBAR_MHS = [
   {
-    key: "dashboard",
-    label: "Dashboard",
-    href: "/mahasiswa/dashboard",
-    icon: GoHome,
-  },
-  {
     key: "list-inventory",
     label: "Daftar Inventaris",
     href: "/mahasiswa/list-inventory",
