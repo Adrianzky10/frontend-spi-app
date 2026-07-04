@@ -14,7 +14,7 @@ const Home = () => {
         return "/admin/dashboard";
 
       case "Mahasiswa":
-        return "/mahasiswa/dashboard";
+        return "/mahasiswa/list-inventory";
 
       case "Petugas":
         return "/petugas/dashboard";
