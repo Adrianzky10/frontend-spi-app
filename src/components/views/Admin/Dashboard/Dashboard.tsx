@@ -40,7 +40,7 @@ const Dashboard = () => {
       default:
         return (
           <Chip color="accent" variant="primary">
-            Dikembali
+            Dikembalikan
           </Chip>
         );
     }
@@ -143,7 +143,7 @@ const Dashboard = () => {
           <Card.Content className="flex items-center justify-between p-5">
             <FaCheck className="text-2xl text-emerald-500" />
             <div>
-              <p className="text-center text-sm text-slate-500">Approved</p>
+              <p className="text-center text-sm text-slate-500">Disetujui</p>
 
               <h3 className="mt-2 text-center text-3xl font-bold text-emerald-500">
                 {dashboard?.approved}
@@ -156,7 +156,7 @@ const Dashboard = () => {
           <Card.Content className="flex items-center justify-between p-5">
             <FaHandHolding className="text-2xl text-slate-700" />
             <div>
-              <p className="text-center text-sm text-slate-500">Borrowed</p>
+              <p className="text-center text-sm text-slate-500">Dipinjam</p>
 
               <h3 className="mt-2 text-center text-3xl font-bold text-slate-700">
                 {dashboard?.borrowed}
@@ -169,7 +169,7 @@ const Dashboard = () => {
           <Card.Content className="flex items-center justify-between p-5">
             <MdAssignmentReturned className="text-2xl text-sky-500" />
             <div>
-              <p className="text-center text-sm text-slate-500">Returned</p>
+              <p className="text-center text-sm text-slate-500">Dikembalikan</p>
 
               <h3 className="mt-2 text-center text-3xl font-bold text-sky-500">
                 {dashboard?.returned}
