@@ -30,6 +30,17 @@ interface JWTExtended extends JWT {
   user?: UserExtended;
 }
 
+export interface IProfile {
+  id: number;
+  role_id: number;
+  role_name: string;
+  full_name: string;
+  nim: string;
+  email: string;
+  is_verified: number;
+  created_at: string;
+}
+
 interface IUpdateProfile {
   full_name: string;
   email: string;
@@ -62,4 +73,5 @@ export type {
   IChangePassword,
   IForgotPassword,
   IResetPassword,
+  IProfile,
 };
