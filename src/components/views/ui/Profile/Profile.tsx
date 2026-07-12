@@ -180,6 +180,7 @@ const Profile = () => {
                   render={({ field }) => (
                     <input
                       {...field}
+                      value={field.value ?? ""}
                       id="full_name"
                       aria-label="Nama Lengkap"
                       className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3"
@@ -199,6 +200,7 @@ const Profile = () => {
                   render={({ field }) => (
                     <input
                       {...field}
+                      value={field.value ?? ""}
                       id="email"
                       aria-label="Email"
                       className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3"
@@ -248,6 +250,7 @@ const Profile = () => {
                 <div className="relative">
                   <input
                     {...field}
+                    value={field.value ?? ""}
                     type={showCurrentPassword ? "text" : "password"}
                     placeholder="Password Lama"
                     aria-label="Password Lama"
@@ -273,6 +276,7 @@ const Profile = () => {
                   <div className="relative">
                     <input
                       {...field}
+                      value={field.value ?? ""}
                       type={showNewPassword ? "text" : "password"}
                       placeholder="Password Baru"
                       aria-label="Password Baru"
@@ -297,6 +301,7 @@ const Profile = () => {
                   <div className="relative">
                     <input
                       {...field}
+                      value={field.value ?? ""}
                       type={showConfirmPassword ? "text" : "password"}
                       placeholder="Konfirmasi Password"
                       aria-label="Konfirmasi Password"
