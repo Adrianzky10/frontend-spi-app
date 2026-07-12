@@ -3,11 +3,7 @@ import Categories from "@/components/views/Admin/Categories";
 
 const page = () => {
   return (
-    <DashboardLayout
-      title="Kelola Kategori"
-      description="Kelola kategori inventaris"
-      type="admin"
-    >
+    <DashboardLayout title="Kelola Kategori" type="admin">
       <Categories />
     </DashboardLayout>
   );

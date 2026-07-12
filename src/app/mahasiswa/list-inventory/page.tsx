@@ -3,11 +3,7 @@ import ListInventory from "@/components/views/Mahasiswa/ListInventory";
 
 const page = () => {
   return (
-    <DashboardLayout
-      title="Ketersediaan Inventaris"
-      description="Ketersediaan inventaris"
-      type="mahasiswa"
-    >
+    <DashboardLayout title="Ketersediaan Inventaris" type="mahasiswa">
       <ListInventory />
     </DashboardLayout>
   );

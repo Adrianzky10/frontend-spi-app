@@ -4,11 +4,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <DashboardLayout
-      title="Dashboard"
-      description="Dashboard Admin"
-      type="admin"
-    >
+    <DashboardLayout title="Dashboard" type="admin">
       <Dashboard />
     </DashboardLayout>
   );

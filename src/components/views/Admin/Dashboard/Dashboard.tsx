@@ -7,6 +7,13 @@ import { PiStudentBold } from "react-icons/pi";
 import { FaHandshake, FaCheck, FaClock, FaHandHolding } from "react-icons/fa";
 
 import useDashboard from "./useDashboard";
+import {
+  ArrowUturnCcwDown,
+  CircleCheckFill,
+  Clock,
+  Trolley,
+  Xmark,
+} from "@gravity-ui/icons";
 
 const Dashboard = () => {
   const { dashboard, isLoading } = useDashboard();
@@ -15,32 +22,41 @@ const Dashboard = () => {
     switch (status) {
       case "Pending":
         return (
-          <Chip color="warning" variant="primary">
-            Pending
+          <Chip color="warning">
+            <Clock width={12} />
+            <Chip.Label>Pending</Chip.Label>
           </Chip>
         );
 
       case "Rejected":
         return (
-          <Chip color="danger" variant="primary">
-            Ditolak
+          <Chip color="danger">
+            <Xmark width={12} />
+            <Chip.Label>Ditolak</Chip.Label>
           </Chip>
         );
 
       case "Approved":
         return (
-          <Chip color="success" variant="primary">
-            Disetujui
+          <Chip color="success">
+            <CircleCheckFill width={12} />
+            <Chip.Label>Disetujui</Chip.Label>
           </Chip>
         );
 
       case "Borrowed":
-        return <Chip className="bg-slate-800 text-white">Borrowed</Chip>;
+        return (
+          <Chip>
+            <Trolley width={12} />
+            <Chip.Label>Dipinjam</Chip.Label>
+          </Chip>
+        );
 
       default:
         return (
-          <Chip color="accent" variant="primary">
-            Dikembalikan
+          <Chip color="accent">
+            <ArrowUturnCcwDown width={12} />
+            <Chip.Label>Dikembalikan</Chip.Label>
           </Chip>
         );
     }

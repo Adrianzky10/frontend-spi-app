@@ -15,19 +15,18 @@ import { IoMdDownload } from "react-icons/io";
 import { MdAssignmentReturned } from "react-icons/md";
 import { useState } from "react";
 
-
+import ActionAlert from "@/components/views/ui/ActionAlert";
+import useDetailBorrowing from "@/components/views/Admin/Borrowings/useDetailBorrowings";
 import useRejectBorrowing from "@/components/views/Admin/Borrowings/useRejectBorrowing";
 import useApproveBorrowing from "@/components/views/Admin/Borrowings/useApproveBorrowing";
-import useDetailBorrowing from "@/components/views/Admin/Borrowings/useDetailBorrowings";
 import useBorrowBorrowing from "@/components/views/Admin/Borrowings/useBorrowBorrowing";
 import useReturnBorrowing from "@/components/views/Admin/Borrowings/useReturnBorrowing";
-import ActionAlert from "@/components/views/ui/ActionAlert";
 
 interface PropTypes {
   id: string;
 }
 
-const VerifikasiDetail = ({ id }: PropTypes) => {
+const BorrowingDetail = ({ id }: PropTypes) => {
   const [showRejectForm, setShowRejectForm] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
   const {
@@ -189,38 +188,8 @@ const VerifikasiDetail = ({ id }: PropTypes) => {
             </div>
           )}
         </div>
-      </div>
-
-      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-semibold">Dokumen Pendukung</h2>
-
-        <div className="flex flex-col items-start justify-between gap-4 rounded-lg border border-slate-200 p-4 md:flex-row md:items-center">
-          <div className="flex items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-red-100">
-              <FaFilePdf className="text-3xl text-red-500" />
-            </div>
-
-            <div>
-              <p className="font-medium">{borrowing.document.file_name}</p>
-
-              <p className="text-sm text-slate-500">
-                Dokumen pengajuan peminjaman inventaris.
-              </p>
-            </div>
-          </div>
-
-          <a
-            href={borrowing.document.file_url}
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-lg bg-[#0066FF] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#0052cc]"
-          >
-            <IoMdDownload />
-            <span>Download</span>
-          </a>
-        </div>
-
         {showRejectForm && (
-          <div className="mt-5 rounded-xl border border-red-200 bg-red-50 p-5">
+          <div className="mt-5 mb-5 rounded-xl border border-red-200 bg-red-50 p-5">
             <h3 className="mb-3 font-semibold text-red-600">
               Alasan Penolakan
             </h3>
@@ -266,73 +235,100 @@ const VerifikasiDetail = ({ id }: PropTypes) => {
             </div>
           </div>
         )}
-      </div>
+        <div className="flex justify-end gap-3">
+          {borrowing.status === "Pending" && (
+            <>
+              <Button
+                className="rounded-lg bg-red-500 text-white"
+                onClick={() => setShowRejectForm(true)}
+              >
+                <IoClose />
+                Reject
+              </Button>
 
-      <div className="flex justify-end gap-3">
-        {borrowing.status === "Pending" && (
-          <>
-            <Button
-              className="rounded-lg bg-red-500 text-white"
-              onClick={() => setShowRejectForm(true)}
-            >
-              <IoClose />
-              Reject
-            </Button>
+              <Button
+                className="rounded-lg bg-[#0066FF] text-white"
+                onClick={() => {
+                  const confirmed = window.confirm(
+                    `Yakin ingin menyetujui peminjaman "${borrowing.user_name}"?`,
+                  );
 
-            <Button
-              className="rounded-lg bg-[#0066FF] text-white"
-              onClick={() => {
-                const confirmed = window.confirm(
-                  `Yakin ingin menyetujui peminjaman "${borrowing.user_name}"?`,
-                );
+                  if (!confirmed) return;
+                  handleApproveBorrowing(borrowing.id);
+                }}
+                isDisabled={isPendingApproveBorrowing}
+              >
+                {isPendingApproveBorrowing ? (
+                  <>
+                    <Spinner />
+                    Loading...
+                  </>
+                ) : (
+                  <>
+                    <FaCheck />
+                    Approve
+                  </>
+                )}
+              </Button>
+            </>
+          )}
 
-                if (!confirmed) return;
-                handleApproveBorrowing(borrowing.id);
-              }}
-              isDisabled={isPendingApproveBorrowing}
-            >
-              {isPendingApproveBorrowing ? (
-                <>
-                  <Spinner />
-                  Loading...
-                </>
-              ) : (
-                <>
-                  <FaCheck />
-                  Approve
-                </>
-              )}
-            </Button>
-          </>
-        )}
+          {borrowing.status === "Approved" && (
+            <>
+              <Button
+                className="bg-slate-800 text-white"
+                aria-label="Pinjamkan"
+                onClick={() => {
+                  const confirmed = window.confirm(
+                    `Pinjamkan "${borrowing.item_name}"?`,
+                  );
 
-        {borrowing.status === "Approved" && (
-          <>
-            <Button
-              className="bg-slate-800 text-white"
-              aria-label="Pinjamkan"
-              onClick={() => {
-                const confirmed = window.confirm(
-                  `Pinjamkan "${borrowing.item_name}"?`,
-                );
+                  if (!confirmed) return;
 
-                if (!confirmed) return;
+                  handleBorrowBorrowing(borrowing.id);
+                }}
+              >
+                {isPendingBorrowBorrowing ? (
+                  <>
+                    <Spinner />
+                    Loading...
+                  </>
+                ) : (
+                  <>
+                    <FaHandHoldingUsd />
+                    Tandai Dipinjamkan
+                  </>
+                )}
+              </Button>
+              <Button
+                className="bg-sky-500 text-white"
+                aria-label="Tandai Barang Sudah Dikembalikan"
+                onClick={() => {
+                  const confirmed = window.confirm(
+                    `Tandai "${borrowing.item_name}" sudah dikembalikan?`,
+                  );
 
-                handleBorrowBorrowing(borrowing.id);
-              }}
-            >
-              {isPendingBorrowBorrowing ? (
-                <>
-                  <Spinner />
-                  Loading...
-                </>
-              ) : (
-                <>
-                  <FaHandHoldingUsd />
-                  Tandai Dipinjamkan
-                </>
-              )}
-            </Button>
+                  if (!confirmed) return;
+
+                  handleReturnBorrowing(borrowing.id);
+                }}
+              >
+                {isPendingReturnBorrowing ? (
+                  <>
+                    <Spinner />
+                    Loading...
+                  </>
+                ) : (
+                  <>
+                    <MdAssignmentReturned />
+                    Tandai Dikembalikan
+                  </>
+                )}
+              </Button>
+            </>
+          )}
+
+          {borrowing.status === "Borrowed" && (
             <Button
               className="bg-sky-500 text-white"
               aria-label="Tandai Barang Sudah Dikembalikan"
@@ -345,51 +341,52 @@ const VerifikasiDetail = ({ id }: PropTypes) => {
 
                 handleReturnBorrowing(borrowing.id);
               }}
+              isDisabled={isPendingReturnBorrowing}
             >
+              <MdAssignmentReturned />
               {isPendingReturnBorrowing ? (
                 <>
                   <Spinner />
                   Loading...
                 </>
               ) : (
-                <>
-                  <MdAssignmentReturned />
-                  Tandai Dikembalikan
-                </>
+                "TandaiDikembalikan"
               )}
             </Button>
-          </>
-        )}
+          )}
+        </div>
+      </div>
 
-        {borrowing.status === "Borrowed" && (
-          <Button
-            className="bg-sky-500 text-white"
-            aria-label="Tandai Barang Sudah Dikembalikan"
-            onClick={() => {
-              const confirmed = window.confirm(
-                `Tandai "${borrowing.item_name}" sudah dikembalikan?`,
-              );
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 className="mb-4 text-lg font-semibold">Dokumen Pendukung</h2>
 
-              if (!confirmed) return;
+        <div className="flex flex-col items-start justify-between gap-4 rounded-lg border border-slate-200 p-4 md:flex-row md:items-center">
+          <div className="flex items-center gap-4">
+            <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-red-100">
+              <FaFilePdf className="text-3xl text-red-500" />
+            </div>
 
-              handleReturnBorrowing(borrowing.id);
-            }}
-            isDisabled={isPendingReturnBorrowing}
+            <div>
+              <p className="font-medium">{borrowing.document.file_name}</p>
+
+              <p className="text-sm text-slate-500">
+                Dokumen pengajuan peminjaman inventaris.
+              </p>
+            </div>
+          </div>
+
+          <a
+            href={borrowing.document.file_url}
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-lg bg-[#0066FF] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#0052cc]"
           >
-            <MdAssignmentReturned />
-            {isPendingReturnBorrowing ? (
-              <>
-                <Spinner />
-                Loading...
-              </>
-            ) : (
-              "TandaiDikembalikan"
-            )}
-          </Button>
-        )}
+            <IoMdDownload />
+            <span>Download</span>
+          </a>
+        </div>
       </div>
     </main>
   );
 };
 
-export default VerifikasiDetail;
+export default BorrowingDetail;

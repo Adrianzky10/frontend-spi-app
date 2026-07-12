@@ -3,11 +3,7 @@ import MyBorrowings from "@/components/views/Mahasiswa/Borrowings";
 
 const page = () => {
   return (
-    <DashboardLayout
-      title="Riwayat Peminjaman"
-      description="Riwayat peminjaman"
-      type="mahasiswa"
-    >
+    <DashboardLayout title="Riwayat Peminjaman" type="mahasiswa">
       <MyBorrowings />
     </DashboardLayout>
   );
