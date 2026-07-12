@@ -147,12 +147,20 @@ const Register = () => {
                 </TextField>
               )}
             />
+            <div className="text-right">
+              <Link
+                href="/auth/forgot-password"
+                className="text-sm font-semibold text-[#0066FF] transition hover:text-blue-700"
+              >
+                Lupa Password?
+              </Link>
+            </div>
 
             <Button
               fullWidth
               size="lg"
               className={cn(
-                "mt-3 h-14 bg-[#0066FF] text-base font-semibold text-white transition hover:scale-[1.01]",
+                " h-14 bg-[#0066FF] text-base font-semibold text-white transition hover:scale-[1.01]",
                 isPendingLogin &&
                   "disabled: cursor-not-allowed bg-[#0066FF] opacity-50",
               )}
