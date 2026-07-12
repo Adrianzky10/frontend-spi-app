@@ -3,11 +3,7 @@ import Dashboard from "@/components/views/Admin/Dashboard";
 
 const page = () => {
   return (
-    <DashboardLayout
-      title="Dashboard"
-      description="Dashboard Petugas"
-      type="petugas"
-    >
+    <DashboardLayout title="Dashboard" type="petugas">
       <Dashboard />
     </DashboardLayout>
   );

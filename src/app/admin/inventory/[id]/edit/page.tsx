@@ -9,11 +9,7 @@ const page = async (props: PropTypes) => {
   const { id } = await props.params;
 
   return (
-    <DashboardLayout
-      title="Edit Inventaris"
-      description="Edit inventaris"
-      type="admin"
-    >
+    <DashboardLayout title="Edit Inventaris" type="admin">
       <EditInventory id={id} />
     </DashboardLayout>
   );

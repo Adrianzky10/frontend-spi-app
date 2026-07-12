@@ -47,7 +47,7 @@ const EditInventory = ({ id }: PropTypes) => {
 
   return (
     <main className="space-y-8">
-      <section>
+      <section className="rounded-xl bg-white p-6 shadow-md">
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold">Edit Inventaris</h1>
@@ -90,8 +90,6 @@ const EditInventory = ({ id }: PropTypes) => {
 
         {inventory?.image_url && (
           <div className="mb-5">
-            <p className="mb-2 text-sm font-medium">Gambar Saat Ini</p>
-
             <Image
               src={inventory.image_url}
               alt={inventory.name}

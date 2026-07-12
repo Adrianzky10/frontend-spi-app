@@ -11,21 +11,25 @@ import {
   Table,
   TextArea,
 } from "@heroui/react";
-import { FaRegTrashAlt } from "react-icons/fa";
 
 import Image from "next/image";
 import { Controller } from "react-hook-form";
 
 import { LuCircleAlert } from "react-icons/lu";
 
-import { IoEyeOutline } from "react-icons/io5";
-import { FiEdit2 } from "react-icons/fi";
 import Link from "next/link";
 import { MdOutlineInventory } from "react-icons/md";
 import useInventory from "./useInventory";
 import useCreateInventory from "./useCreateInventory";
 import useDeleteInventory from "./useDeleteInventory";
 import useCategory from "../Categories/useCategory";
+import {
+  Ban,
+  CircleCheckFill,
+  Eye,
+  PencilToSquare,
+  TrashBin,
+} from "@gravity-ui/icons";
 
 interface Inventory {
   id: number;
@@ -43,12 +47,13 @@ const Inventory = () => {
     handleCreateInventory,
     isPendingCreateInventory,
     errors,
+    isSuccess,
   } = useCreateInventory();
   const { handleDeleteInventory, isPendingDeleteInventory } =
     useDeleteInventory();
   return (
     <main className="flex flex-col gap-10">
-      <section>
+      <section className="border border-border rounded-2xl bg-white p-6 shadow-sm">
         <div className="mb-6 flex items-start justify-between">
           <div>
             <h2 className="text-2xl font-bold">Tambah Inventaris</h2>
@@ -70,6 +75,14 @@ const Inventory = () => {
                 <li key={index}>{error?.message}</li>
               ))}
             </ul>
+          </div>
+        )}
+        {isSuccess && (
+          <div className="bg-success/10 text-success mt-3 mb-3 rounded-lg p-3 text-xs">
+            <div className="mb-2 flex items-center gap-2">
+              <CircleCheckFill className="text-lg" />
+              <span>Data berhasil ditambahkan.</span>
+            </div>
           </div>
         )}
 
@@ -248,17 +261,19 @@ const Inventory = () => {
 
                       <Table.Cell>
                         {inventory.stock === 0 ? (
-                          <Chip size="md" color="danger" variant="primary">
-                            Habis
+                          <Chip color="danger">
+                            <Ban width={12} />
+                            <Chip.Label>Habis</Chip.Label>
                           </Chip>
                         ) : (
-                          <Chip
-                            size="md"
-                            variant="primary"
-                            className="bg-emerald-500 text-white"
-                          >
-                            {inventory.stock}{" "}
-                            <span className="text-sm opacity-80">tersedia</span>
+                          <Chip color="success">
+                            <CircleCheckFill width={12} />
+                            <Chip.Label>
+                              {" "}
+                              <span className="text-sm opacity-80">
+                                {inventory.stock} Stok
+                              </span>
+                            </Chip.Label>
                           </Chip>
                         )}
                       </Table.Cell>
@@ -266,20 +281,19 @@ const Inventory = () => {
                       <Table.Cell>
                         <div className="flex items-center gap-2">
                           <Link href={`/admin/inventory/${inventory.id}`}>
-                            <Button variant="tertiary" size="sm" isIconOnly>
-                              <IoEyeOutline />
+                            <Button variant="outline" isIconOnly>
+                              <Eye color="#0066FF" />
                             </Button>
                           </Link>
 
                           <Link href={`/admin/inventory/${inventory.id}/edit`}>
-                            <Button variant="tertiary" size="sm" isIconOnly>
-                              <FiEdit2 />
+                            <Button variant="outline" isIconOnly>
+                              <PencilToSquare color="#E4B028" />
                             </Button>
                           </Link>
                           <Button
                             isIconOnly
-                            size="sm"
-                            variant="danger-soft"
+                            variant="outline"
                             onClick={() => {
                               const confirmed = window.confirm(
                                 `Yakin ingin menghapus inventaris "${inventory.name}"?`,
@@ -293,7 +307,7 @@ const Inventory = () => {
                             {isPendingDeleteInventory ? (
                               <Spinner size="sm" color="warning" />
                             ) : (
-                              <FaRegTrashAlt />
+                              <TrashBin color="#DC2626" />
                             )}
                           </Button>
                         </div>

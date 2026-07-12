@@ -3,47 +3,59 @@
 import { Button, Chip, Modal, Spinner, Table } from "@heroui/react";
 import { FaFilePdf } from "react-icons/fa";
 import useMyBorrowings from "./useMyBorrowing";
-import { useState } from "react";
+import {
+  ArrowUturnCcwDown,
+  CircleCheckFill,
+  Clock,
+  TriangleExclamationFill,
+  Trolley,
+  Xmark,
+} from "@gravity-ui/icons";
 
 const MyBorrowings = () => {
-  const [selectedReason, setSelectedReason] = useState<string | null>(null);
   const { borrowings, isLoading } = useMyBorrowings();
 
   const renderStatus = (status: string) => {
     switch (status) {
       case "Pending":
         return (
-          <Chip color="warning" variant="primary">
-            Pending
-          </Chip>
-        );
-
-      case "Approved":
-        return (
-          <Chip color="success" variant="primary">
-            Approved
-          </Chip>
-        );
-
-      case "Borrowed":
-        return <Chip className="bg-slate-800 text-white">Borrowed</Chip>;
-
-      case "Returned":
-        return (
-          <Chip color="accent" variant="soft">
-            Returned
+          <Chip color="warning">
+            <Clock width={12} />
+            <Chip.Label>Pending</Chip.Label>
           </Chip>
         );
 
       case "Rejected":
         return (
-          <Chip color="danger" variant="soft">
-            Rejected
+          <Chip color="danger">
+            <Xmark width={12} />
+            <Chip.Label>Ditolak</Chip.Label>
+          </Chip>
+        );
+
+      case "Approved":
+        return (
+          <Chip color="success">
+            <CircleCheckFill width={12} />
+            <Chip.Label>Disetujui</Chip.Label>
+          </Chip>
+        );
+
+      case "Borrowed":
+        return (
+          <Chip>
+            <Trolley width={12} />
+            <Chip.Label>Dipinjam</Chip.Label>
           </Chip>
         );
 
       default:
-        return <Chip>{status}</Chip>;
+        return (
+          <Chip color="accent">
+            <ArrowUturnCcwDown width={12} />
+            <Chip.Label>Dikembalikan</Chip.Label>
+          </Chip>
+        );
     }
   };
 
@@ -67,7 +79,10 @@ const MyBorrowings = () => {
 
       <Table aria-label="Peminjaman Saya">
         <Table.ScrollContainer>
-          <Table.Content className="min-w-[1100px]">
+          <Table.Content
+            className="min-w-[1100px]"
+            aria-label="Peminjaman Saya"
+          >
             <Table.Header>
               <Table.Column isRowHeader>ID</Table.Column>
               <Table.Column>Barang</Table.Column>
@@ -117,13 +132,41 @@ const MyBorrowings = () => {
 
                   <Table.Cell className="text-end">
                     {item.status === "Rejected" && (
-                      <Button
-                        size="sm"
-                        variant="primary"
-                        onPress={() => setSelectedReason(item.rejection_reason)}
-                      >
-                        Lihat Keterangan
-                      </Button>
+                      <Modal>
+                        <Button variant="secondary" size="sm">
+                          Lihat Keterangan
+                        </Button>
+
+                        <Modal.Backdrop variant="blur">
+                          <Modal.Container>
+                            <Modal.Dialog className="sm:max-w-[420px]">
+                              <Modal.CloseTrigger />
+
+                              <Modal.Header>
+                                <Modal.Icon className="bg-red-100">
+                                  <TriangleExclamationFill className="size-5 text-red-500" />
+                                </Modal.Icon>
+
+                                <Modal.Heading>Alasan Penolakan</Modal.Heading>
+                              </Modal.Header>
+
+                              <Modal.Body>
+                                <div className="rounded-xl border border-red-200 bg-red-50 p-4">
+                                  <p className="leading-7 text-slate-700">
+                                    {item.rejection_reason}
+                                  </p>
+                                </div>
+                              </Modal.Body>
+
+                              <Modal.Footer>
+                                <Button className="w-full" slot="close">
+                                  Tutup
+                                </Button>
+                              </Modal.Footer>
+                            </Modal.Dialog>
+                          </Modal.Container>
+                        </Modal.Backdrop>
+                      </Modal>
                     )}
                   </Table.Cell>
                 </Table.Row>
@@ -133,7 +176,7 @@ const MyBorrowings = () => {
         </Table.ScrollContainer>
       </Table>
 
-      {selectedReason ? (
+      {/* {selectedReason ? (
         <Modal
           isOpen={!!selectedReason}
           onOpenChange={() => setSelectedReason(null)}
@@ -155,7 +198,7 @@ const MyBorrowings = () => {
             </div>
           </div>
         </Modal>
-      ) : null}
+      ) : null} */}
     </main>
   );
 };

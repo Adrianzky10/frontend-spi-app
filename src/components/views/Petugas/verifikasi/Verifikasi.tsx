@@ -2,8 +2,15 @@
 
 import Link from "next/link";
 import { Button, Chip, Spinner, Table } from "@heroui/react";
-import { IoEyeOutline } from "react-icons/io5";
 import useBorrowings from "../../Admin/Borrowings/useBorrowings";
+import {
+  ArrowUturnCcwDown,
+  CircleCheckFill,
+  Clock,
+  Eye,
+  Trolley,
+  Xmark,
+} from "@gravity-ui/icons";
 
 const Verifikasi = () => {
   const { borrowings, isLoading } = useBorrowings();
@@ -61,44 +68,37 @@ const Verifikasi = () => {
 
                     <Table.Cell>
                       {borrowing.status === "Pending" && (
-                        <Chip
-                          variant="primary"
-                          className="bg-amber-500 text-white"
-                        >
-                          Pending
+                        <Chip color="warning">
+                          <Clock width={12} />
+                          <Chip.Label>Pending</Chip.Label>
                         </Chip>
                       )}
 
                       {borrowing.status === "Approved" && (
-                        <Chip
-                          variant="primary"
-                          className="bg-emerald-500 text-white"
-                        >
-                          Disetujui
+                        <Chip color="success">
+                          <CircleCheckFill width={12} />
+                          <Chip.Label>Disetujui</Chip.Label>
                         </Chip>
                       )}
 
                       {borrowing.status === "Rejected" && (
-                        <Chip color="danger" variant="primary">
-                          Ditolak
+                        <Chip color="danger">
+                          <Xmark width={12} />
+                          <Chip.Label>Ditolak</Chip.Label>
                         </Chip>
                       )}
 
                       {borrowing.status === "Returned" && (
-                        <Chip
-                          variant="primary"
-                          className="bg-sky-500 text-white"
-                        >
-                          Dikembalikan
+                        <Chip color="accent">
+                          <ArrowUturnCcwDown width={12} />
+                          <Chip.Label>Dikembalikan</Chip.Label>
                         </Chip>
                       )}
 
                       {borrowing.status === "Borrowed" && (
-                        <Chip
-                          variant="primary"
-                          className="bg-slate-800 text-white"
-                        >
-                          Dipinjam
+                        <Chip>
+                          <Trolley width={12} />
+                          <Chip.Label>Dipinjam</Chip.Label>
                         </Chip>
                       )}
                     </Table.Cell>
@@ -107,12 +107,12 @@ const Verifikasi = () => {
                       <div className="flex items-center gap-2">
                         <Link href={`/petugas/verifikasi/${borrowing.id}`}>
                           <Button
-                            variant="tertiary"
+                            variant="outline"
                             size="sm"
                             isIconOnly
                             aria-label="Lihat Detail Peminjaman"
                           >
-                            <IoEyeOutline />
+                            <Eye color="#0066FF" />
                           </Button>
                         </Link>
                       </div>

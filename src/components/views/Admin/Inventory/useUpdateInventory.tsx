@@ -10,6 +10,7 @@ import * as yup from "yup";
 import inventoryServices from "@/services/inventory.service";
 import useDetailInventory from "./useDetailInventory";
 import { IUpdateInventory } from "@/Types/Inventory";
+import { useRouter } from "next/navigation";
 
 const updateInventorySchema: yup.ObjectSchema<IUpdateInventory> = yup.object({
   name: yup.string().required("Masukkan nama inventaris"),
@@ -25,6 +26,7 @@ const updateInventorySchema: yup.ObjectSchema<IUpdateInventory> = yup.object({
 
 const useUpdateInventory = (id: string) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { inventory } = useDetailInventory(id);
 
@@ -86,6 +88,10 @@ const useUpdateInventory = (id: string) => {
       queryClient.invalidateQueries({
         queryKey: ["inventory", id],
       });
+
+      setTimeout(() => {
+        router.push("/admin/inventory");
+      }, 1500);
     },
 
     onError(error: AxiosError<{ message: string }> | Error) {

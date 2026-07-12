@@ -4,9 +4,9 @@ import type { SortDescriptor } from "@heroui/react";
 
 import { Button, Chip, Spinner, Table } from "@heroui/react";
 import { useMemo, useState } from "react";
-import { FaRegTrashAlt } from "react-icons/fa";
 import useUsers from "./useUsers";
 import useDeleteUser from "./useDeleteUser";
+import { TrashBin } from "@gravity-ui/icons";
 
 export default function Users() {
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
@@ -43,8 +43,6 @@ export default function Users() {
             Kelola data pengguna yang terdaftar pada sistem.
           </p>
         </div>
-
-        <Button>Tambah Pengguna</Button>
       </div>
       {isLoading ? (
         <div className="flex items-center justify-center">
@@ -124,7 +122,7 @@ export default function Users() {
                         <Button
                           isIconOnly
                           size="sm"
-                          variant="danger-soft"
+                          variant="outline"
                           onClick={() => {
                             const confirmed = window.confirm(
                               `Yakin ingin menghapus pengguna "${user.full_name}"?`,
@@ -139,7 +137,7 @@ export default function Users() {
                           {isPendingDeleteUser ? (
                             <Spinner color="danger" />
                           ) : (
-                            <FaRegTrashAlt />
+                            <TrashBin color="#DC2626" />
                           )}
                         </Button>
                       </div>

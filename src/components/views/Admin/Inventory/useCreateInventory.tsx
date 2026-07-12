@@ -8,6 +8,7 @@ import * as yup from "yup";
 
 import inventoryServices from "@/services/inventory.service";
 import { ICreateInventory } from "@/Types/Inventory";
+import { useState } from "react";
 
 const createInventorySchema = yup.object({
   name: yup.string().required("Masukkan nama inventaris"),
@@ -27,6 +28,7 @@ const createInventorySchema = yup.object({
 
 const useCreateInventory = () => {
   const queryClient = useQueryClient();
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const {
     control,
@@ -66,6 +68,7 @@ const useCreateInventory = () => {
         });
 
         reset();
+        setIsSuccess(true);
       },
 
       onError(error: AxiosError<{ message: string }> | Error) {
@@ -90,6 +93,7 @@ const useCreateInventory = () => {
     handleCreateInventory,
     isPendingCreateInventory,
     errors,
+    isSuccess,
   };
 };
 

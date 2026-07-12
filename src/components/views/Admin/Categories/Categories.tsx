@@ -1,12 +1,12 @@
 "use client";
 import { Button, InputGroup, Spinner, Table, TextField } from "@heroui/react";
-import { FaRegTrashAlt } from "react-icons/fa";
 import useCreateCategory from "./useCreateCategory";
 import { Controller } from "react-hook-form";
 import { FieldError } from "react-aria-components";
 import { LuCircleAlert } from "react-icons/lu";
 import useCategory from "./useCategory";
 import useDeleteCategory from "./useDeleteCategory";
+import { TrashBin } from "@gravity-ui/icons";
 
 const Categories = () => {
   const { categories, isLoading } = useCategory();
@@ -99,7 +99,7 @@ const Categories = () => {
                       <Button
                         isIconOnly
                         size="sm"
-                        variant="danger-soft"
+                        variant="outline"
                         onClick={() => {
                           const confirmed = window.confirm(
                             `Yakin ingin menghapus kategori "${category.name}"?`,
@@ -113,7 +113,7 @@ const Categories = () => {
                         {isPendingDeleteCategory ? (
                           <Spinner />
                         ) : (
-                          <FaRegTrashAlt />
+                          <TrashBin color="#DC2626" />
                         )}
                       </Button>
                     </Table.Cell>

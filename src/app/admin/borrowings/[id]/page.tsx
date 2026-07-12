@@ -8,11 +8,7 @@ interface PropTypes {
 const page = async (props: PropTypes) => {
   const { id } = await props.params;
   return (
-    <DashboardLayout
-      title="Detail Peminjaman"
-      description="Detail peminjaman inventaris"
-      type="admin"
-    >
+    <DashboardLayout title="Detail Peminjaman" type="admin">
       <BorrowingDetail id={id} />
     </DashboardLayout>
   );

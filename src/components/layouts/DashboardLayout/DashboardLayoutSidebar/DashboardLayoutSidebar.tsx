@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import { Button, ListBox, Label, Avatar } from "@heroui/react";
+import { Button, ListBox, Label } from "@heroui/react";
 import { cn } from "@/utils/cn";
+import { FaUserCircle } from "react-icons/fa";
+import { CiBoxes } from "react-icons/ci";
 
 interface SidebarItem {
   key: string;
@@ -17,18 +19,6 @@ interface Props {
   sidebarItems: SidebarItem[];
   isOpen: boolean;
 }
-
-const getInitials = (name?: string | null | undefined) => {
-  if (!name) return "U";
-
-  return name
-    .trim()
-    .split(" ")
-    .slice(0, 2)
-    .map((word) => word[0]?.toUpperCase())
-    .join("");
-};
-
 export default function DashboardLayoutSidebar({
   sidebarItems,
   isOpen,
@@ -48,13 +38,19 @@ export default function DashboardLayoutSidebar({
     >
       <div>
         <Link href="/" className="mb-8 block border-b border-slate-200 pb-6">
-          <h1 className="text-2xl font-bold tracking-wide text-[#0066FF]">
-            SPI APP
-          </h1>
-
-          <p className="mt-1 text-sm text-slate-500">
-            Sistem Peminjaman Inventaris Kampus
-          </p>
+          <div className="font-bold tracking-wide text-[#0066FF]">
+            <div className="flex items-center gap-4">
+              <div className="rounded-xl bg-blue-100 p-3">
+                <CiBoxes size={30} />
+              </div>
+              <div className="flex flex-col">
+                <h1 className="md:text-xl text-xl">SPI APP</h1>
+                <p className="mt-0.5 text-[10px] text-slate-500">
+                  Sistem Peminjaman Inventaris Kampus
+                </p>
+              </div>
+            </div>
+          </div>
         </Link>
 
         <ListBox
@@ -97,16 +93,7 @@ export default function DashboardLayoutSidebar({
 
       <div className="border-t pt-4">
         <div className="mb-3 flex items-center gap-3 rounded-xl bg-slate-50 p-3">
-          <Avatar size="lg">
-            <Avatar.Image
-              alt={session?.user?.name ?? "User"}
-              src={session?.user?.image ?? ""}
-            />
-
-            <Avatar.Fallback>
-              {getInitials(session?.user?.name)}
-            </Avatar.Fallback>
-          </Avatar>
+          <FaUserCircle className="text-3xl text-[#0066FF]" />
 
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-semibold text-slate-900">

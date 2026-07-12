@@ -3,11 +3,7 @@ import Inventory from "@/components/views/Admin/Inventory";
 
 const page = () => {
   return (
-    <DashboardLayout
-      title="Kelola Inventaris"
-      description="Kelola inventaris"
-      type="admin"
-    >
+    <DashboardLayout title="Kelola Inventaris" type="admin">
       <Inventory />
     </DashboardLayout>
   );
