@@ -3,7 +3,7 @@ import Profile from "@/components/views/ui/Profile";
 
 const page = () => {
   return (
-    <DashboardLayout title="Profil" type="mahasiswa">
+    <DashboardLayout title="Profil" type="petugas">
       <Profile />
     </DashboardLayout>
   );
